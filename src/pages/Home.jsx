@@ -95,7 +95,7 @@ const Home = () => {
 
                 <div className="hero__btns d-flex align-items-center gap-5 mt-4">
                   <button className="order__btn d-flex align-items-center justify-content-between">
-                    Order now <i class="ri-arrow-right-s-line"></i>
+                    Order now <i className="ri-arrow-right-s-line"></i>
                   </button>
 
                   <button className="all__foods-btn">
@@ -106,14 +106,14 @@ const Home = () => {
                 <div className=" hero__service  d-flex align-items-center gap-5 mt-5 ">
                   <p className=" d-flex align-items-center gap-2 ">
                     <span className="shipping__icon">
-                      <i class="ri-car-line"></i>
+                      <i className="ri-car-line"></i>
                     </span>{" "}
                     No shipping charge
                   </p>
 
                   <p className=" d-flex align-items-center gap-2 ">
                     <span className="shipping__icon">
-                      <i class="ri-shield-check-line"></i>
+                      <i className="ri-shield-check-line"></i>
                     </span>{" "}
                     100% secure checkout
                   </p>
