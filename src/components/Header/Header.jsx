@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useEffect } from 'react'
 
 import { Container } from 'reactstrap'
 import logo from '../../assets/images/res-logo.png'
@@ -26,10 +26,33 @@ const nav__links = [
 ];
 
 const Header = () => {
-  const menuRef = useRef(null)
+  const menuRef = useRef(null);
+  const headerRef = useRef(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (
+        document.body.scrollTop > 80 ||
+        document.documentElement.scrollTop > 80
+      ) {
+        headerRef.current.classList.add('header__shrink');
+      } else {
+        headerRef.current.classList.remove('header__shrink');
+      }
+    };
+  
+    window.addEventListener('scroll', handleScroll);
+  
+    // Limpia el event listener cuando el componente se desmonta
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+  
+
   const toggleMenu = () => menuRef.current.classList.toggle('show__menu')
   return (
-    <header className="header">
+    <header className="header" ref={headerRef}>
       <Container>
         <div className="nav__wrapper d-flex align-items-center justify-content-between">
           <span className="mobile__menu" onClick={toggleMenu}>
@@ -46,7 +69,7 @@ const Header = () => {
               {nav__links.map((item, index) => (
                 <NavLink 
                 to={item.path} key={index}
-                clclassName={(navClass) =>
+                className={(navClass) =>
                   navClass.isActive ? "active__menu" : ""
                 }
                 >
