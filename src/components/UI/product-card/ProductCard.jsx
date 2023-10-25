@@ -1,24 +1,24 @@
-import React from 'react'
+import React from 'react';
 
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
-import { useDispatch } from 'react-redux'
-import { cartActions } from '../../../store/shopping-cart/cartSlice'
+import { useDispatch } from 'react-redux';
+import { cartActions } from '../../../store/shopping-cart/cartSlice';
 
-import '../../../styles/product-card.css'
+import '../../../styles/product-card.css';
 
 const ProductCard = (props) => {
-    const {id, title, image01, price} = props.item
-    const dispatch = useDispatch()
+    const {id, title, image01, price} = props.item;
+    const dispatch = useDispatch();
 
     const addToCart = () => {
         dispatch(cartActions.addItem({
             id,
             title,
             image01,
-            price}
-        ))
-    }
+            price
+        }));
+    };
   return (
     <div className='product__item'>
         <div className="product__img">
@@ -33,9 +33,8 @@ const ProductCard = (props) => {
                 <button className='addToCart__btn' onClick={addToCart}>Add to Cart</button>
             </div>
         </div>
-    </div>
-    
-  )
-}
+    </div> 
+  );
+};
 
-export default ProductCard
+export default ProductCard;

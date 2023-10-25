@@ -1,13 +1,12 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useRef, useEffect } from 'react';
+import { Container } from 'reactstrap';
+import logo from '../../assets/images/res-logo.png';
+import { NavLink, Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 
-import { Container } from 'reactstrap'
-import logo from '../../assets/images/res-logo.png'
-import { NavLink, Link } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux'
+import { cartUiActions } from '../../store/shopping-cart/cartUiSlice';
 
-import { cartUiActions } from '../../store/shopping-cart/cartUiSlice'
-
-import '../../styles/header.css'
+import '../../styles/header.css';
 
 const nav__links = [
   {
@@ -31,12 +30,12 @@ const nav__links = [
 const Header = () => {
   const menuRef = useRef(null);
   const headerRef = useRef(null);
-  const totalQuantity = useSelector(state=> state.cart.totalQuantity)
-  const dispatch = useDispatch()
+  const totalQuantity = useSelector((state)=> state.cart.totalQuantity);
+  const dispatch = useDispatch();
 
   const toggleCart = () => {
     dispatch(cartUiActions.toggle())
-  }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -59,7 +58,7 @@ const Header = () => {
   }, []);
   
 
-  const toggleMenu = () => menuRef.current.classList.toggle('show__menu')
+  const toggleMenu = () => menuRef.current.classList.toggle('show__menu');
   return (
     <header className="header" ref={headerRef}>
       <Container>
@@ -100,7 +99,7 @@ const Header = () => {
         </div>
       </Container>
     </header>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;
