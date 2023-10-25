@@ -35,14 +35,14 @@ const Footer = () => {
           <h5 className="footer__title">Contact</h5>
             <ListGroup className="deliver__time-list">
               <ListGroupItem className=" delivery__time-item border-0 ps-0">
-                <p>Location: ZindaBazar, Sylhet-3100, Bangladesh</p>
+                <p>Location: Turkish Gourmet, Turkiye</p>
               </ListGroupItem>
               <ListGroupItem className=" delivery__time-item border-0 ps-0">
                 <span>Phone: 01712345678</span>
               </ListGroupItem>
 
               <ListGroupItem className=" delivery__time-item border-0 ps-0">
-                <span>Email: example@gmail.com</span>
+                <span>Email: kemalquebien@gmail.com</span>
               </ListGroupItem>
             </ListGroup>
           </Col>
