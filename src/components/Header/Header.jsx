@@ -68,7 +68,7 @@ const Header = () => {
           </span>
           <div className="logo">
             <img src={logo} alt="logo" />
-            <h5>Tasty Treat</h5>
+            <h5>Food Order</h5>
           </div>
 
           {/* ========== Menu ==*/}

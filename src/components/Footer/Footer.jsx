@@ -11,13 +11,13 @@ const Footer = () => {
       <Container>
         <Row>
           <Col lg='4' md='6' sm='6'>
-            <div className="footer__logo">
+            <div className="footer__logo text-center" >
               <img src={logo} alt="logo" />
-              <h5>Tasty Treat</h5>
+              <h5>Food Order</h5>
               <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea unde aspernatur eum officia porro accusamus repudiandae labore facere, similique nulla tempora. Id nisi officiis dolorum atque distinctio suscipit voluptates corrupti.</p>
             </div>
           </Col>
-          <Col lg='4' md='6' sm='6'>
+          <Col lg='4' md='6' sm='6' className='text-center'>
             <h5 className="footer__title">Delivery Time</h5>
             <ListGroup className="deliver__time-list">
               <ListGroupItem className="delivery__time-item border-0 ps-0">
@@ -31,18 +31,18 @@ const Footer = () => {
               </ListGroupItem>
             </ListGroup>
           </Col>
-          <Col lg='4' md='6' sm='6'>
+          <Col lg='4' md='6' sm='6' className='text-center'>
           <h5 className="footer__title">Contact</h5>
             <ListGroup className="deliver__time-list">
               <ListGroupItem className=" delivery__time-item border-0 ps-0">
-                <p>Location: Turkish Gourmet, Turkiye</p>
+                <p>Location: Almoradi</p>
               </ListGroupItem>
               <ListGroupItem className=" delivery__time-item border-0 ps-0">
-                <span>Phone: 01712345678</span>
+                <span>Phone: +34 652561427</span>
               </ListGroupItem>
 
               <ListGroupItem className=" delivery__time-item border-0 ps-0">
-                <span>Email: kemalquebien@gmail.com</span>
+                <span>Email: mderfoufi.developer@gmail.com</span>
               </ListGroupItem>
             </ListGroup>
           </Col>
@@ -50,7 +50,7 @@ const Footer = () => {
         <Row className="mt-5">
           <Col lg="6" md="6">
             <p className="copyright__text">
-              Copyright - 2022, website made by Muhibur Rahman. All Rights
+              Copyright - 2023, website made by Mohammed Derfoufi. All Rights
               Reserved.
             </p>
           </Col>
@@ -59,27 +59,27 @@ const Footer = () => {
               <p className="m-0">Follow: </p>
               <span>
                 {" "}
-                <Link to="https://www.facebook.com/muhib160">
+                <Link to="https://www.facebook.com/moha.quehay">
                   <i className="ri-facebook-line"></i>
                 </Link>{" "}
               </span>
 
               <span>
-                <Link to="https://github.com/muhib160">
+                <Link to="https://github.com/moha-der">
                   <i className="ri-github-line"></i>
                 </Link>
               </span>
 
               <span>
                 {" "}
-                <Link to=" https://www.youtube.com/c/MuhibsTechDiary">
-                  <i className="ri-youtube-line"></i>
+                <Link to=" https://www.instagram.com/mohaa_99_/">
+                  <i className="ri-instagram-line"></i>
                 </Link>{" "}
               </span>
 
               <span>
                 {" "}
-                <Link to=" https://www.linkedin.com/in/muhib160/">
+                <Link to=" https://www.linkedin.com/in/mohammed-derfoufi/">
                   <i className="ri-linkedin-line"></i>
                 </Link>{" "}
               </span>

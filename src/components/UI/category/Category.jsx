@@ -20,7 +20,7 @@ const categoryData = [
   },
 
   {
-    display: "Asian Food",
+    display: "Indian Food",
     imgUrl: categoryImg03,
   },
 
