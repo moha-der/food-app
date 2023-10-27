@@ -8,7 +8,6 @@ import { Container, Row, Col, FormGroup, Label, Input } from "reactstrap";
 
 import { useDispatch } from "react-redux";
 import { cartActions } from "../store/shopping-cart/cartSlice";
-import Ingredients from "../components/UI/ingredients/Ingredients";
 
 import "../styles/product-details.css";
 
