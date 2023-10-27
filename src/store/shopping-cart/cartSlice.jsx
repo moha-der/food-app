@@ -1,5 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+
+
 const items =
   localStorage.getItem("cartItems") !== null
     ? JSON.parse(localStorage.getItem("cartItems"))
@@ -14,6 +16,8 @@ const totalQuantity =
   localStorage.getItem("totalQuantity") !== null
     ? JSON.parse(localStorage.getItem("totalQuantity"))
     : 0;
+
+
 
 const setItemFunc = (item, totalAmount, totalQuantity) => {
   localStorage.setItem("cartItems", JSON.stringify(item));
@@ -35,7 +39,8 @@ const cartSlice = createSlice({
         addItem(state, action){
             const newItem = action.payload;
             const existingItem = state.cartItems.find(
-                items=> items.id === newItem.id
+                items=> items.id === newItem.id && 
+                JSON.stringify(items.ingredientsSelected) === JSON.stringify(newItem.ingredientsSelected)
             );
             state.totalQuantity++;
 
@@ -46,7 +51,8 @@ const cartSlice = createSlice({
                     image01: newItem.image01,
                     price: newItem.price,
                     quantity: 1,
-                    totalPrice: newItem.price
+                    totalPrice: newItem.price,
+                    ingredientsSelected: newItem.ingredientsSelected
                 });
             }
             else {
@@ -66,12 +72,15 @@ const cartSlice = createSlice({
         },
 
         removeItem(state,action) {
-            const id = action.payload;
-            const existingItem = state.cartItems.find(item => item.id === id);
+            const newItem = action.payload;
+            const existingItem = state.cartItems.find(item => item.id === newItem.id && 
+                JSON.stringify(item.ingredientsSelected) === JSON.stringify(newItem.ingredientsSelected));
             state.totalQuantity--;
 
             if(existingItem.quantity === 1) {
-                state.cartItems = state.cartItems.filter(item => item.id != id);
+                state.cartItems = state.cartItems.filter(item => item.id != newItem.id || 
+                    (item.id === newItem.id && 
+                JSON.stringify(item.ingredientsSelected) != JSON.stringify(newItem.ingredientsSelected)));
             } else {
                 existingItem.quantity--;
                 existingItem.totalPrice = Number(existingItem.totalPrice) - Number(existingItem.price);
@@ -88,11 +97,14 @@ const cartSlice = createSlice({
 
 
         deleteItem(state,action) {
-            const id = action.payload
-            const existingItem = state.cartItems.find(item => item.id === id )
+            const newItem = action.payload;
+            const existingItem = state.cartItems.find(item => item.id === newItem.id && 
+                JSON.stringify(item.ingredientsSelected) === JSON.stringify(newItem.ingredientsSelected));
 
             if(existingItem) {
-                state.cartItems = state.cartItems.filter(item => item.id != id)
+                state.cartItems = state.cartItems.filter(item => item.id != newItem.id || 
+                    (item.id === newItem.id && 
+                JSON.stringify(item.ingredientsSelected) != JSON.stringify(newItem.ingredientsSelected)))
                 state.totalQuantity = state.totalQuantity - existingItem.quantity
             }
             

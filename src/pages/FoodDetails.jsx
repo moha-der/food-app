@@ -4,28 +4,36 @@ import products from "../assets/fake-data/products";
 import { useParams } from "react-router-dom";
 import Helmet from "../components/Helmet/Helmet";
 import CommonSection from "../components/UI/common-section/CommonSection";
-import { Container, Row, Col } from "reactstrap";
+import { Container, Row, Col, FormGroup, Label, Input } from "reactstrap";
 
 import { useDispatch } from "react-redux";
 import { cartActions } from "../store/shopping-cart/cartSlice";
+import Ingredients from "../components/UI/ingredients/Ingredients";
 
 import "../styles/product-details.css";
 
 import ProductCard from "../components/UI/product-card/ProductCard";
 
 const FoodDetails = () => {
-  const [tab, setTab] = useState("desc");
-  const [enteredName, setEnteredName] = useState("");
-  const [enteredEmail, setEnteredEmail] = useState("");
-  const [reviewMsg, setReviewMsg] = useState("");
   const { id } = useParams();
   const dispatch = useDispatch();
 
   const product = products.find((product) => product.id === id);
   const [previewImg, setPreviewImg] = useState(product.image01);
-  const { title, price, category, desc, image01 } = product;
+  const { title, price, category, desc, image01, ingredients } = product;
 
   const relatedProduct = products.filter((item) => category === item.category);
+
+  const [ingredientsSelected, setingredientsSelected] = useState([]);
+
+  const handleIngredientChange = (ingredient, isChecked) => {
+    if (isChecked) {
+        setingredientsSelected([...ingredientsSelected, ingredient]);
+    } else {
+        setingredientsSelected(ingredientsSelected.filter(item => item !== ingredient));
+    }
+  };
+
 
   const addItem = () => {
     dispatch(
@@ -34,15 +42,11 @@ const FoodDetails = () => {
         title,
         price,
         image01,
+        ingredientsSelected
       })
     );
   };
 
-  const submitHandler = (e) => {
-    e.preventDefault();
-
-    console.log(enteredName, enteredEmail, reviewMsg);
-  };
 
   useEffect(() => {
     setPreviewImg(product.image01);
@@ -51,6 +55,8 @@ const FoodDetails = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [product]);
+
+  
 
   return (
     <Helmet title="Product-details">
@@ -99,6 +105,22 @@ const FoodDetails = () => {
                 <p className="category mb-5">
                   Category: <span>{category}</span>
                 </p>
+                <span className="select__ingredient">Select ingredients:</span>
+                <FormGroup>
+                  {ingredients.map(ingredient => (
+                    <div key={ingredient}>
+                      <Label check>
+                        <Input
+                          type="checkbox"
+                          name={ingredient}
+                          checked={ingredientsSelected.includes(ingredient)}
+                          onChange={(e) => handleIngredientChange(ingredient, e.target.checked)}
+                        />
+                        <span className="check__ingredient">{ingredient}</span>
+                      </Label>
+                    </div>
+                  ))}
+                </FormGroup>
 
                 <button onClick={addItem} className="addToCart__btn">
                   Add to Cart
