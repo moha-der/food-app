@@ -12,6 +12,7 @@ import featureImg02 from "../assets/images/service-02.png";
 import featureImg03 from "../assets/images/service-03.png";
 
 import products from '../assets/fake-data/products.js';
+import { obtenerProductos } from '../utils/products.jsx';
 import foodCategoryImg01 from "../assets/images/hamburger.png";
 import foodCategoryImg02 from "../assets/images/pizza.png";
 import foodCategoryImg03 from "../assets/images/bread.png";
@@ -20,6 +21,7 @@ import '../styles/hero-section.css'
 import '../styles/home.css'
 
 import ProductCard from '../components/UI/product-card/ProductCard.jsx';
+
 
 const featureData = [
   {
@@ -42,15 +44,34 @@ const featureData = [
 
 const Home = () => {
   const [category, setCategory] = useState('ALL');
-  const [allProducts, setAllProducts] = useState(products);
+  const [productos, setProductos] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await obtenerProductos();
+        setProductos(data);
+      } catch (error) {
+        console.log('Error al obtener Productos:', error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  const [allProducts, setAllProducts] = useState(productos);
+
+  useEffect(() => {
+    setAllProducts(productos);
+  }, [productos]);
+  
 
   useEffect(() => {
     if (category === "ALL") {
-      setAllProducts(products);
+      setAllProducts(productos);
     }
 
     if (category === "BURGER") {
-      const filteredProducts = products.filter(
+      const filteredProducts = productos.filter(
         (item) => item.category === "Burger"
       );
 
@@ -58,7 +79,7 @@ const Home = () => {
     }
 
     if (category === "PIZZA") {
-      const filteredProducts = products.filter(
+      const filteredProducts = productos.filter(
         (item) => item.category === "Pizza"
       );
 
@@ -66,7 +87,7 @@ const Home = () => {
     }
 
     if (category === "BREAD") {
-      const filteredProducts = products.filter(
+      const filteredProducts = productos.filter(
         (item) => item.category === "Bread"
       );
 

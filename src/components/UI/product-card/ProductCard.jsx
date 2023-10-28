@@ -9,16 +9,7 @@ import '../../../styles/product-card.css';
 
 const ProductCard = (props) => {
     const {id, title, image01, price} = props.item;
-    const dispatch = useDispatch();
 
-    const addToCart = () => {
-        dispatch(cartActions.addItem({
-            id,
-            title,
-            image01,
-            price
-        }));
-    };
   return (
     <div className='product__item'>
         <div className="product__img">

@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 
-import { getProducto } from "../utils/products";
+import products from "../assets/fake-data/products";
 import { useParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
-
 import Helmet from "../components/Helmet/Helmet";
 import CommonSection from "../components/UI/common-section/CommonSection";
 import { Container, Row, Col, FormGroup, Label, Input } from "reactstrap";
+import { getProducto } from "../utils/products";
 
+import { useDispatch } from "react-redux";
 import { cartActions } from "../store/shopping-cart/cartSlice";
 
 import "../styles/product-details.css";
@@ -15,61 +15,72 @@ import "../styles/product-details.css";
 import ProductCard from "../components/UI/product-card/ProductCard";
 
 const FoodDetails = () => {
-  const { id } = useParams(); 
   const [product, setProduct] = useState(null);
-
+  const { id } = useParams();
   const dispatch = useDispatch();
-  const [previewImg, setPreviewImg] = useState(null);
-
   const [ingredientsSelected, setingredientsSelected] = useState([]);
+  const [previewImg, setPreviewImg] = useState();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const productoObtenido = await getProducto(id);
-        console.log(productoObtenido);
         setProduct(productoObtenido); 
-        console.log(productoObtenido.image01)
-        setPreviewImg(productoObtenido.image01)
-        window.scrollTo(0, 0);
+        console.log(productoObtenido)
+        setPreviewImg(productoObtenido?.image01 || null);
       } catch (error) {
         console.error('Error al obtener el producto:', error);
       }
     };
 
-    fetchData();
-  }, []);
+    fetchData(); // Llama a la función para obtener el producto cuando el componente se monta
 
-  if(!product) {
-    return <div>Loading....</div>
-  }
+  }, [id]);
 
-  const { title, price, category, descr, image01, ingredients } = product;
-  const ingredientsArray = ingredients.split(",");
+  console.log(product);
 
-  const handleIngredientChange = (ingredient, isChecked) => {
-    if (isChecked) {
-        setingredientsSelected([...ingredientsSelected, ingredient]);
-    } else {
-        setingredientsSelected(ingredientsSelected.filter(item => item !== ingredient));
-    }
-  };
+  if (product) {
+    const { title, price, category, descr, image01, ingredients } = product;
 
-  const addItem = () => {
-    dispatch(
-      cartActions.addItem({
-        id,
-        title,
-        price,
-        image01,
-        ingredientsSelected
-      })
-    );
-  };
+    const relatedProduct = products.filter((item) => category === item.category);
+
+    
+
+    const handleIngredientChange = (ingredient, isChecked) => {
+      if (isChecked) {
+          setingredientsSelected([...ingredientsSelected, ingredient]);
+      } else {
+          setingredientsSelected(ingredientsSelected.filter(item => item !== ingredient));
+      }
+    };
+
+    
+
+    const addItem = () => {
+      dispatch(
+        cartActions.addItem({
+          id,
+          title,
+          price,
+          image01,
+          ingredientsSelected
+        })
+      );
+    };
 
 
-  return (
-    <Helmet title="Product-details">
+    useEffect(() => {
+      setPreviewImg(product.image01);
+    }, [product]);
+
+    useEffect(() => {
+      window.scrollTo(0, 0);
+    }, [product]);
+
+    
+
+    return (
+      <Helmet title="Product-details">
         <CommonSection title={title} />
 
         <section>
@@ -117,7 +128,7 @@ const FoodDetails = () => {
                   </p>
                   <span className="select__ingredient">Select ingredients:</span>
                   <FormGroup>
-                    {ingredientsArray.map(ingredient => (
+                    {ingredients.map(ingredient => (
                       <div key={ingredient}>
                         <Label check>
                           <Input
@@ -156,11 +167,22 @@ const FoodDetails = () => {
                 <h2 className="related__Product-title">You might also like</h2>
               </Col>
 
+              {relatedProduct.map((item) => (
+                <Col lg="3" md="4" sm="6" xs="6" className="mb-4" key={item.id}>
+                  <ProductCard item={item} />
+                </Col>
+              ))}
             </Row>
           </Container>
         </section>
       </Helmet>
-  );
+    );
+  } else {
+    return (
+      <div>hola</div>
+    )
+  }
+
 };
 
 export default FoodDetails;
